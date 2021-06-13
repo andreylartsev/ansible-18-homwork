@@ -1,3 +1,3 @@
 # ansible-18-homwork
 
-uhiuhiu
+homework of Andrey Lartsev, student of the 18en stream of the Ansible coarse
