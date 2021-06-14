@@ -1,6 +1,6 @@
 ---
-- name: show facts
-  hosts: node1.example.com
+- name: Install apache
+  hosts: node1
   tasks:
     - name: Install the latest version of Apache
       yum:
