@@ -1,6 +1,6 @@
 ---
 - name: Uninstall Apache Web server
-  hosts: node1
+  hosts: node1, node2
   tasks:
     - name: Disable http port
       firewalld:

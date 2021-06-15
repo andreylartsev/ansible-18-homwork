@@ -1,6 +1,6 @@
 ---
 - name: Install latest Apache Web server and make sure it is running
-  hosts: node1
+  hosts: node1, node2
   tasks:
     - name: Install latest Apache
       yum:
