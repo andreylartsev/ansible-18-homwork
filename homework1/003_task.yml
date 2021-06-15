@@ -1,0 +1,29 @@
+---
+- name: Update Grub config
+#[ansible@ansible-18-control ~]$ cat grub
+#GRUB_TIMEOUT=1
+#GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
+#GRUB_DEFAULT=saved
+#GRUB_DISABLE_SUBMENU=true
+#GRUB_TERMINAL_OUTPUT="console"
+#GRUB_CMDLINE_LINUX="console=ttyS0 crashkernel=auto biosdevname=0 net.ifnames=0"
+#GRUB_DISABLE_RECOVERY="true"
+#GRUB_ENABLE_BLSCFG=true
+  hosts: node1
+  vars:
+    - config_path: /home/ansible/grub
+  tasks:
+    - name: Add biosdevname=0
+      lineinfile:
+        path: "{{config_path}}"
+        state: present
+        backup: yes
+        regexp: "\s+biosdevname\s*=\s*1"
+        line: "biosdevname=0"
+    - name: Add net.ifnames=0
+      lineinfile:
+        path: "{{config_path}}"
+        state: present
+        backup: yes
+        regexp: "\s+net\.ifnames\s*=\s*1"
+        line: "net.ifnames=1"
