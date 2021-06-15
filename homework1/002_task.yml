@@ -7,11 +7,18 @@
         service: http
         permanent: yes
         state: enabled
+    - name: Getting existing services
+      service_facts:
+      register: existing_services
+#    - name: Show services
+#      debug:
+#        var: existing_services.ansible_facts.services["httpd.service"]
     - name: Stop Apache service
       service:
         name: httpd
         state: stopped
-      ignore_errors: yes
+      when: existing_services.ansible_facts.services["httpd.service"] is defined and existing_services.ansible_facts.services["httpd.service"].state == "running"      
+#      ignore_errors: yes
     - name: Delete home page
       file:
         dest: /var/www/html/index.html
