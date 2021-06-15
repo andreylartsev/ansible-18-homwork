@@ -18,12 +18,14 @@
         path: "{{config_path}}"
         state: present
         backup: yes
-        regexp: "\s+biosdevname\s*=\s*1"
-        line: "biosdevname=0"
+        regexp: '^(.*)\s+biosdevname\s*=\s*1(.*)$'
+        backrefs: yes
+        line: '\1 biosdevname=0 \2'
     - name: Add net.ifnames=0
       lineinfile:
         path: "{{config_path}}"
         state: present
         backup: yes
-        regexp: "\s+net\.ifnames\s*=\s*1"
-        line: "net.ifnames=1"
+        regexp: '^(.*)\s+net\.ifnames\s*=\s*1(.*)$'
+        backrefs: yes
+        line: '\1 net.ifnames=0 \2'
