@@ -15,6 +15,13 @@
         src: index.html
         dest: /var/www/html
         mode: 0644
+    - name: Install firewalld
+      yum:
+        name: firewalld
+        state: latest
+    - name: Install firewall pip module
+      pip:
+        name: firewall
     - name: Setup http port
       firewalld:
         service: http
