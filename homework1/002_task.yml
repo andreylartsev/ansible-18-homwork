@@ -1,0 +1,22 @@
+---
+- name: Uninstall Apache Web server
+  hosts: node1
+  tasks:
+    - name: Disable http port
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+    - name: Stop Apache service
+      service:
+        name: httpd
+        state: stopped
+    - name: Delete home page
+      file:
+        dest: /var/www/html/index.html
+        state: absent
+    - name: Uninstall latest Apache
+      yum:
+        name: httpd
+        state: absent
+
