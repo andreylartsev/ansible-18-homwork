@@ -10,6 +10,7 @@
       service:
         name: httpd
         state: started
+        enabled: yes
     - name: Setup home page
       copy:
         src: index.html
