@@ -11,6 +11,7 @@
       service:
         name: httpd
         state: stopped
+      ignore_errors: yes
     - name: Delete home page
       file:
         dest: /var/www/html/index.html
