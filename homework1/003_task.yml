@@ -13,22 +13,38 @@
   vars:
     - config_path: /home/ansible/grub
   tasks:
-    - name: Add biosdevname=0
+    - name: Update biosdevname to 0 if parameter exists
       lineinfile:
         path: "{{config_path}}"
         state: present
         backup: yes
         regexp: '^(.*)\s+biosdevname\s*=\s*1(.*)$'
         backrefs: yes
-        line: '\1 biosdevname=0 \2'
-    - name: Add net.ifnames=0
+        line: '\1 biosdevname=0\2'
+    - name: Add biosdevname=0 if parameter is missing
+      lineinfile:
+        path: "{{config_path}}"
+        state: present
+        backup: yes
+        regexp: '^(GRUB_CMDLINE_LINUX=(?!.* biosdevname)\"[^\"]+)(\".*)'
+        backrefs: yes
+        line: '\1 biosdevname=0\2'
+    - name: Update net.ifnames to 0 if parameter exists
       lineinfile:
         path: "{{config_path}}"
         state: present
         backup: yes
         regexp: '^(.*)\s+net\.ifnames\s*=\s*1(.*)$'
         backrefs: yes
-        line: '\1 net.ifnames=0 \2'
+        line: '\1 net.ifnames=0\2'
+  - name: Add net.ifnames=0 if parameter is missing
+      lineinfile:
+        path: "{{config_path}}"
+        state: present
+        backup: yes
+        regexp: '^(GRUB_CMDLINE_LINUX=(?!.* net.ifnames)\"[^\"]+)(\".*)'
+        backrefs: yes
+        line: '\1 net.ifnames=0\2'
     - name: Exec grub2-mkconfig
       shell:
         cmd: grub2-mkconfig
