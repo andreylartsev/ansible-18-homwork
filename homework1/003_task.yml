@@ -29,3 +29,6 @@
         regexp: '^(.*)\s+net\.ifnames\s*=\s*1(.*)$'
         backrefs: yes
         line: '\1 net.ifnames=0 \2'
+    - name: Exec grub2-mkconfig
+      shell:
+        cmd: grub2-mkconfig
