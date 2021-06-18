@@ -11,7 +11,7 @@
 #GRUB_ENABLE_BLSCFG=true
   hosts: node1
   vars:
-    - config_path: /home/ansible/grub
+    - config_path: /etc/default/grub
   tasks:
     - name: Update biosdevname to 0 if parameter exists
       lineinfile:
