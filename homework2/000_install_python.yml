@@ -1,0 +1,17 @@
+---
+- hosts: node1, node2
+  become: yes
+  gather_facts: no
+  pre_tasks:
+  - name: "install python"
+    raw: "sudo yum install -y python3"
+  - name: "select python3 as a default for the system"
+    raw: "sudo alternatives --set python /usr/bin/python3"
+  tasks:
+  - name: Install firewalld
+    yum:
+      name: firewalld
+      state: latest
+  - name: Install firewall pip module
+    pip:
+      name: firewall
