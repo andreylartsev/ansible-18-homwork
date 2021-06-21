@@ -1,0 +1,31 @@
+---
+- name: create users using a loop
+  hosts: node1
+  vars:
+  - secret: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          63356634393635393339616139356537643963353766616566383363666663653234626562643932
+          3761633034623161356635636166656462313237623930650a656564396338623661626232333231
+          64303532393538373530636462323335643765613539373434626336323738386337653631356135
+          3265363231633238620a316665393031353933666464323538376539616366376635633636343831
+          3262
+  tasks: 
+  - name: create users 
+    user: 
+      name: "{{ item.name }}"
+      state: present
+      group: users
+      home: "{{ item.home }}"
+      password: "{{ secret }}"
+      comment: "{{ item.email }}"
+    loop:
+      - name: Alice
+        email: alice@example.com
+        home: /home/alice
+      - name: Bob
+        email: robert@example.com
+        home: /home/robert
+      - name: Carol
+        email: carol@example.com
+        home: /home/carol
+
